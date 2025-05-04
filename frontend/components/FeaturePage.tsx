@@ -6,12 +6,11 @@ import {
   IconEaseInOut,
   IconFileExport,
   IconHelp,
-  IconRouteAltLeft,
+  IconRouteAltLeft, 
   IconTerminal2,
 } from "@tabler/icons-react";
 import { Spotlight } from "./Spotlight";
-import { motion } from "framer-motion"; // Import motion
-
+import { motion } from "framer-motion";     
 export function FeaturePage() {
     const features = [
         {
@@ -64,12 +63,11 @@ export function FeaturePage() {
     <div className="relative bg-black flex flex-col items-center justify-center min-h-screen w-screen overflow-x-hidden py-10"> 
       <Spotlight />
 
-      {/* Wrap features grid and button in motion.div */}
       <motion.div
-        initial={{ opacity: 0, y: 50 }} // Start from bottom (y: 50) and invisible (opacity: 0)
-        animate={{ opacity: 1, y: 0 }}   // Animate to original position (y: 0) and visible (opacity: 1)
-        transition={{ duration: 0.8, ease: "easeInOut" }} // Smooth transition
-        className="flex flex-col items-center w-full" // Added flex container for centering
+        initial={{ opacity: 0, y: 50 }} 
+        animate={{ opacity: 1, y: 0 }}   
+        transition={{ duration: 0.8, ease: "easeInOut" }} 
+        className="flex flex-col items-center w-full" 
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 relative z-10 py-10 px-4 max-w-7xl mx-auto overflow-x-hidden">
           {features.map((feature, index) => (
@@ -77,7 +75,7 @@ export function FeaturePage() {
           ))}
         </div>
 
-        <button className="w-40 h-10 rounded-xl font-bold bg-black border-2 dark:border-white border-transparent text-white text-sm mt-8 relative z-10"> {/* Added margin-top and z-index */}
+        <button className="w-40 h-10 rounded-xl font-bold bg-black border-2 dark:border-white border-transparent text-white text-sm mt-8 relative z-10"> 
           →
         </button>
       </motion.div>
