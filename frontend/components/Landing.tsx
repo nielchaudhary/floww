@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { DotBackground } from './GridBackground';
+
+import { LandingPage } from './TypeWriterEffect';
 export const Landing = () => {
 
     return (
@@ -7,7 +7,7 @@ export const Landing = () => {
         <div
             
         >
-            <DotBackground />
+            <LandingPage />
 
           
         </div>
