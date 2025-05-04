@@ -211,9 +211,11 @@ export function LandingPage() {
 
     },
     {
-      text: "Flow",
-      className: "text-green-200 dark:text-green-250",
+      text: "flow",
+      className: "text-teal-700 dark:text-teal-750",
     },
+    
+   
   ];
   return (
     <div className="relative bg-black flex flex-col items-center justify-center h-screen w-full">
