@@ -1,8 +1,10 @@
 
 import { Spotlight } from './Spotlight';
 import {  TypewriterEffectSmooth } from './TypeWriterEffect';
+import { useNavigate } from 'react-router-dom';
 export const Landing = () => {
 
+    const navigate = useNavigate();
     const words = [
         {
           text: "Turn",
@@ -48,9 +50,11 @@ export const Landing = () => {
                 </p>
                 <TypewriterEffectSmooth words={words} />
                 <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4">
-                  <button className="w-40 h-10 rounded-xl font-bold bg-black border-2 dark:border-white border-transparent text-white text-sm">
+                  <button onClick={() => navigate('/features')} className="w-40 h-10 rounded-xl font-bold bg-black border-2 dark:border-white border-transparent text-white text-sm">
                     Buildd →
                   </button>
+
+                
                   
                 </div>
               </div>
