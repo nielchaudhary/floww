@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { Logger } from "./utils/logger";
+import { Logger } from "./internal/app/logger";
 
 const app = express();
 const logger = new Logger('server');
