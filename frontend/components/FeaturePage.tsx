@@ -65,7 +65,7 @@ export function FeaturePage() {
         },
       ];
   return (
-    <div className="relative bg-black flex flex-col items-center justify-center min-h-screen w-screen overflow-x-hidden py-10"> 
+    <div className="relative bg-black flex flex-col items-center justify-center min-h-screen w-screen overflow-x-hidden overflow-y-hidden py-10"> 
       <Spotlight />
 
       <motion.div
