@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { cn } from "../lib/utils";
 import { useMotionTemplate, useMotionValue, motion } from "framer-motion";
-import { isNullOrUndefined } from "../lib/utils";
-import { isEmpty } from "lodash";
-import {
+import { validateSignupForm, SignupFormData } from "../utils/SignupUtils";
+import{
+
+
     IconBrandGithub,
     IconBrandGoogle,
     IconLogin,
@@ -12,6 +13,7 @@ import {
   } from "@tabler/icons-react";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 
 
@@ -97,14 +99,19 @@ export function SignupForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const mandatoryFields = [firstname, lastname, email, password];
-    if(mandatoryFields.some(field => isNullOrUndefined(field) || isEmpty(field))){
-        alert("Please fill all the fields");
-        return;
-    }
-   
 
-    console.log("Form submitted");
+
+    if( validateSignupForm({
+        firstname,
+        lastname,
+        email,
+        password,
+      } as SignupFormData) === false) {
+        return;
+      }
+    
+    
+    toast.success("Signup successful!"); 
   };
   return (
     <div className="shadow-input mx-auto w-full max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black">
@@ -125,7 +132,7 @@ export function SignupForm() {
         </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" placeholder="buildcrazyproducts@flow.app" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <Input id="email" placeholder="buildcrazyproducts@flow.app" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
@@ -152,7 +159,7 @@ export function SignupForm() {
         <div className="flex space-x-4 flex-row">
           <button
             className="group/btn shadow-input relative flex h-10 w-full items-center justify-center space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-            type="submit"
+            type="button" // Changed type to button to prevent form submission
           >
             <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-sm text-neutral-700 dark:text-neutral-300">
@@ -162,7 +169,7 @@ export function SignupForm() {
           </button>
           <button
             className="group/btn shadow-input relative flex h-10 w-full items-center justify-center space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-            type="submit"
+            type="button" // Changed type to button to prevent form submission
           >
             <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-sm text-neutral-700 dark:text-neutral-300">
@@ -174,13 +181,13 @@ export function SignupForm() {
         </div>
        
       </form>
-      <div className="flex justify-center mt-8 max-w-sm text-lg font-bold text-neutral-600 dark:text-neutral-300">
+      <div className="mt-8 flex justify-center text-lg font-bold text-neutral-600 dark:text-neutral-300">
         Already have an account? 
       </div>
       <div className="flex justify-center">
         <button
             className="group/btn mt-2 shadow-input relative flex h-10 w-40 items-center justify-center space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-            type="submit"
+            type="button" // Changed type to button to prevent form submission
             onClick={() => navigate("/login")}
           >
             <IconLogin className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
@@ -218,6 +225,4 @@ export const LabelInputContainer = ({
     </div>
   );
 };
-
-
 
