@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import React from "react";
 type SpotlightProps = {
   gradientFirst?: string;
   gradientSecond?: string;

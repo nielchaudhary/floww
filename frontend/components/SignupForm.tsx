@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { cn } from "../lib/utils";
 import { useMotionTemplate, useMotionValue, motion } from "framer-motion";
+import { isNullOrUndefined } from "../lib/utils";
+import { isEmpty } from "lodash";
 import {
     IconBrandGithub,
     IconBrandGoogle,
@@ -86,9 +88,22 @@ export { Label };
 
 export function SignupForm() {
 
+
     const navigate = useNavigate();
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const mandatoryFields = [firstname, lastname, email, password];
+    if(mandatoryFields.some(field => isNullOrUndefined(field) || isEmpty(field))){
+        alert("Please fill all the fields");
+        return;
+    }
+   
+
     console.log("Form submitted");
   };
   return (
@@ -101,20 +116,20 @@ export function SignupForm() {
         <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
           <LabelInputContainer>
             <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Cracked" type="text" />
+            <Input id="firstname" placeholder="Cracked" type="text" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
           </LabelInputContainer>
           <LabelInputContainer>
             <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Builder" type="text" />
+            <Input id="lastname" placeholder="Builder" type="text" value={lastname} onChange={(e) => setLastname(e.target.value)} />
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" placeholder="buildcrazyproducts@flow.app" type="email" />
+          <Input id="email" placeholder="buildcrazyproducts@flow.app" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input id="password" placeholder="••••••••" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </LabelInputContainer>
          
 
