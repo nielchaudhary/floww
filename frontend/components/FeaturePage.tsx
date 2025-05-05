@@ -10,13 +10,16 @@ import {
   IconTerminal2,
 } from "@tabler/icons-react";
 import { Spotlight } from "./Spotlight";
-import { motion } from "framer-motion";     
+import { motion } from "framer-motion";   
+
+import { useNavigate } from "react-router-dom";
 export function FeaturePage() {
+    const navigate = useNavigate();
     const features = [
         {
           title: "Built for the masses",
           description:
-            "Whether you're a seasoned architect or just starting out, Flow helps everyone visualize and create professional system designs.",
+            "Whether you're a seasoned architect or just starting out, Flow helps everyone visualize and create professional system designs & workflows.",
           icon: <IconTerminal2 />,
         },
         {
@@ -74,8 +77,8 @@ export function FeaturePage() {
             <Feature key={feature.title} {...feature} index={index} />
           ))}
         </div>
-
-        <button className="w-40 h-10 rounded-xl font-bold bg-black border-2 dark:border-white border-transparent text-white text-sm mt-8 relative z-10"> 
+   
+        <button className="w-40 h-10 rounded-xl font-bold bg-black border-2 dark:border-white border-transparent text-white text-sm mt-8 relative z-10" onClick={() => navigate("/start")}> 
           →
         </button>
       </motion.div>
