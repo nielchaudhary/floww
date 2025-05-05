@@ -10,6 +10,11 @@ export interface SignupFormData {
     password: string;
 }
 
+export interface LoginFormData {
+    email: string;
+    password: string;
+}
+
 
 export const validateSignupForm = (formData: SignupFormData) => {
      
@@ -45,6 +50,21 @@ export const validateSignupForm = (formData: SignupFormData) => {
 
     if (passwordErrors.length > 0) {
         toast.error(`Password must contain at least one ${passwordErrors.join(', ')}.`);
+        return false;
+    }
+
+}
+
+export const validateLoginForm = (formData: LoginFormData) => {
+    const { email, password } = formData;
+    if (!email || !password) {
+        toast.error("Please fill in all fields.");
+        return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        toast.error("Please enter a valid email address format.");
         return false;
     }
 
