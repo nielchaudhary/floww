@@ -3,6 +3,7 @@ import { Spotlight } from './Spotlight';
 import {  TypewriterEffectSmooth } from './TypeWriterEffect';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
+import { BottomGradient } from './SignupForm';
 export const Landing = () => {
 
     const navigate = useNavigate();
@@ -32,7 +33,7 @@ export const Landing = () => {
     
         },
         {
-          text: "flow",
+          text: "floww",
           className: "text-teal-700 dark:text-teal-750",
         },
         
@@ -51,8 +52,9 @@ export const Landing = () => {
                 </p>
                 <TypewriterEffectSmooth words={words} />
                 <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4">
-                  <button onClick={() => navigate('/features')} className="w-40 h-10 rounded-xl font-bold bg-black border-2 dark:border-white border-transparent text-white text-sm">
-                    Buildd →
+                  <button onClick={() => navigate('/features')} className="group/btn relative fle shadow-input w-40 h-10 rounded-xl font-bold bg-black border-transparent text-white text-sm  dark:bg-zinc-900  dark:shadow-[0px_0px_1px_1px_#262626]">
+                    buildd →
+                    <BottomGradient/>
                   </button>
 
                 

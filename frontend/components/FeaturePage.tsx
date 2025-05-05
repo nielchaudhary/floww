@@ -10,6 +10,7 @@ import {
   IconTerminal2,
 } from "@tabler/icons-react";
 import { Spotlight } from "./Spotlight";
+import { BottomGradient } from "./SignupForm";
 import { motion } from "framer-motion";   
 import React from "react";
 
@@ -79,8 +80,9 @@ export function FeaturePage() {
           ))}
         </div>
    
-        <button className="w-40 h-10 rounded-xl font-bold bg-black border-2 dark:border-white border-transparent text-white text-sm mt-8 relative z-10" onClick={() => navigate("/start")}> 
+        <button className="group/btn relative shadow-input w-40 h-10 rounded-xl font-bold bg-black border-transparent text-white text-sm mt-8 relative z-10 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]" onClick={() => navigate("/start")}> 
           →
+          <BottomGradient/>
         </button>
       </motion.div>
     </div>
