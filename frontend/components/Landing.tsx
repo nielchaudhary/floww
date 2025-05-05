@@ -2,6 +2,7 @@
 import { Spotlight } from './Spotlight';
 import {  TypewriterEffectSmooth } from './TypeWriterEffect';
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
 export const Landing = () => {
 
     const navigate = useNavigate();
@@ -40,7 +41,7 @@ export const Landing = () => {
      
 
         return (
-            <div className="relative bg-black flex flex-col items-center justify-center h-screen w-full">
+            <div className="relative bg-black flex flex-col items-center justify-center min-h-screen w-screen overflow-x-hidden py-10">
                <Spotlight
                
               />
