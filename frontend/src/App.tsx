@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Landing } from '../components/Landing';
 import { FeaturePage } from '../components/FeaturePage';
 import { GetStarted } from '../components/GetStarted';
-import { Chat } from '../components/Chat';
+import {  ChatPage } from '../components/Chat';
 function App() {
 
   return (
@@ -14,7 +14,7 @@ function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/features" element={<FeaturePage />} />
       <Route path="/start" element={<GetStarted />} />
-      <Route path="/chat" element={<Chat />} />
+      <Route path="/chat" element={<ChatPage />} />
     </Routes>
     </BrowserRouter>
     </>
