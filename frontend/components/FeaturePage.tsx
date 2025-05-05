@@ -11,6 +11,7 @@ import {
 } from "@tabler/icons-react";
 import { Spotlight } from "./Spotlight";
 import { motion } from "framer-motion";   
+import React from "react";
 
 import { useNavigate } from "react-router-dom";
 export function FeaturePage() {
@@ -35,7 +36,7 @@ export function FeaturePage() {
           icon: <IconCurrencyDollar />,
         },
         {
-          title: "100% Uptime guarantee",
+          title: "100% Uptime Guarantee",
           description: "Our reliable infrastructure ensures your workflow creation is never interrupted.",
           icon: <IconCloud />,
         },
