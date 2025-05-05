@@ -1,11 +1,11 @@
 import { cn } from "../lib/utils";
 import {
   IconBrain,
+  IconClock24,
   IconCloud,
   IconCurrencyDollar,
   IconEaseInOut,
   IconFileExport,
-  IconHelp,
   IconRouteAltLeft, 
   IconTerminal2,
 } from "@tabler/icons-react";
@@ -50,7 +50,7 @@ export function FeaturePage() {
           title: "24/7 Customer Support",
           description:
             "Get help anytime with our responsive support team and AI-powered assistance.",
-          icon: <IconHelp />,
+          icon: <IconClock24 />,
         },
         {
           title: "Detailed Reasoning",
