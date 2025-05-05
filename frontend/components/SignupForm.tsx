@@ -172,7 +172,9 @@ export function SignupForm() {
           </button>
            
         </div>
-        <div className="flex justify-center mt-8 max-w-sm text-lg font-bold text-neutral-600 dark:text-neutral-300">
+       
+      </form>
+      <div className="flex justify-center mt-8 max-w-sm text-lg font-bold text-neutral-600 dark:text-neutral-300">
         Already have an account? 
       </div>
       <div className="flex justify-center">
@@ -188,7 +190,6 @@ export function SignupForm() {
             <BottomGradient />
           </button>
         </div>
-      </form>
 
     
     </div>
