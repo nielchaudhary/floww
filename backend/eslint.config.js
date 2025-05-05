@@ -1,15 +1,25 @@
+const typescriptParser = require("@typescript-eslint/parser");
+
 module.exports = {
-    env: {
-      es6: true,
-      node: true,
-    },
-    extends: ["plugin:@typescript-eslint/recommended", "plugin:@typescript-eslint/recommended-requiring-type-checking"],
-    parser: "@typescript-eslint/parser",
-    parserOptions: {
-      project: "tsconfig.json",
+    languageOptions: {
+      ecmaVersion: 2022,
       sourceType: "module",
+      globals: {
+        es6: true,
+        node: true
+      },
+      parser: typescriptParser,
+      parserOptions: {
+        project: "./tsconfig.json"
+      }
+   
     },
-    plugins: ["@typescript-eslint", "import", "jsdoc", "prefer-arrow"],
+    plugins: {
+      "@typescript-eslint": require("@typescript-eslint/eslint-plugin"),
+      "import": require("eslint-plugin-import"),
+      "jsdoc": require("eslint-plugin-jsdoc"),
+      "prefer-arrow": require("eslint-plugin-prefer-arrow")
+    },
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-unnecessary-type-assertion": "off",
@@ -28,7 +38,6 @@ module.exports = {
         "error",
         { vars: "all", args: "after-used", argsIgnorePattern: "^_", varsIgnorePattern: "Ignore$" },
       ],
-  
       "no-warning-comments": [
         "warn",
         {
@@ -37,7 +46,7 @@ module.exports = {
         },
       ],
       "@typescript-eslint/no-unsafe-argument": "off",
-      curly: ["warn"],
+      "curly": ["warn"],
       "no-console": ["warn"],
       "prefer-object-spread": ["error"],
       "func-style": ["warn", "expression", { allowArrowFunctions: true }],
