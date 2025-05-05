@@ -2,39 +2,41 @@
 import { Spotlight } from './Spotlight';
 import {  TypewriterEffectSmooth } from './TypeWriterEffect';
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
 import { BottomGradient } from './SignupForm';
 export const Landing = () => {
 
     const navigate = useNavigate();
     const words = [
         {
-          text: "Turn",
-          className: "text-gray-300 dark:text-gray-350",
+          text: "turn",
+          className: "text-gray-400 dark:text-gray-450",
     
         },
         {
           text: "ideas",
-          className: "text-gray-300 dark:text-gray-350",
+          className: "text-gray-400 dark:text-gray-450",
     
         },
         {
           text: "into",
-          className: "text-gray-300 dark:text-gray-350",
+          className: "text-gray-400 dark:text-gray-450",
     
         },
         {
           text: "workflows",
-          className: "text-gray-300 dark:text-gray-350",
+          className: "text-gray-400 dark:text-gray-450",
         },
         {
           text: "with",
-          className: "text-gray-300 dark:text-gray-350",
+          className: "text-gray-400 dark:text-gray-450",
     
         },
         {
           text: "floww",
           className: "text-teal-700 dark:text-teal-750",
+        },
+        {
+          text: "💡"
         },
         
        
@@ -42,7 +44,7 @@ export const Landing = () => {
      
 
         return (
-            <div className="relative bg-black flex flex-col items-center justify-center min-h-screen w-screen overflow-x-hidden py-10">
+            <div className="relative bg-black flex flex-col items-center justify-center min-h-screen w-screen overflow-x-hidden overflow-y-hidden py-10">
                <Spotlight
                
               />
