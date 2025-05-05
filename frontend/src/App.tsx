@@ -5,6 +5,7 @@ import { Landing } from '../components/Landing';
 import { FeaturePage } from '../components/FeaturePage';
 import { GetStarted } from '../components/GetStarted';
 import {  ChatPage } from '../components/Chat';
+import { LoginForm } from '../components/LoginForm';
 function App() {
 
   return (
@@ -13,8 +14,9 @@ function App() {
     <Routes>
       <Route path="/" element={<Landing />} />
       <Route path="/features" element={<FeaturePage />} />
-      <Route path="/start" element={<GetStarted />} />
+      <Route path="/signup" element={<GetStarted />} />
       <Route path="/chat" element={<ChatPage />} />
+      <Route path="/login" element={<LoginForm />} />
     </Routes>
     </BrowserRouter>
     </>
