@@ -6,6 +6,7 @@ import { ChatPage } from '../components/Chat';
 import { LoginForm } from '../components/LoginForm';
 import { Toaster } from 'sonner'; 
 import { PricingSection } from '../components/PricingSection';
+import { NewPrompt } from '../components/NewPrompt';
 function App() {
   return (  
     <BrowserRouter>
@@ -17,6 +18,7 @@ function App() {
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/pricing" element={<PricingSection />} />
+        <Route path="/new" element={<NewPrompt />} />
       </Routes>
     </BrowserRouter>
   );
