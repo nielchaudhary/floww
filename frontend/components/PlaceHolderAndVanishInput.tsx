@@ -285,7 +285,6 @@ export function CreateNewPrompt() {
         "Create a workflow for user auth",
         "Visualize an e-commerce checkout process",
         "How do I design a scalable data pipeline?",
-        "Generate a system diagram for content delivery network",
       ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
