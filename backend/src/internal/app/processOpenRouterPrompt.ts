@@ -1,25 +1,28 @@
 import OpenAI from "openai"
 import dotenv from "dotenv"
 import { isNullOrUndefined } from "../../pkg/data-utils"
-
+import { Logger } from "../../pkg/logger"
 dotenv.config()
 
+const logger = new Logger("processOpenRouterPrompt")
 
-
-if(isNullOrUndefined(process.env.OPENROUTER_API_KEY)) {
-    throw new Error("could not find OPENROUTER_API_KEY in environment variables")
+if(isNullOrUndefined(process.env.OPEN_ROUTER_API_KEY)) {
+  logger.error("could not find OPEN_ROUTER_API_KEY in environment variables")
+  throw new Error("could not find OPEN_ROUTER_API_KEY in environment variables")
 }
-    
+
 const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPENROUTER_API_KEY,
+  apiKey: process.env.OPEN_ROUTER_API_KEY,
   defaultHeaders: {
-    "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`
+    "Authorization": `Bearer ${process.env.OPEN_ROUTER_API_KEY}`
   },
 })
 
 
 export const processUserPrompt = async (prompt: string) => {
+  logger.info(`System Design Prompt Received: ${prompt}`)
+  try {
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
     response_format: { type: "json_object" }, 
@@ -137,8 +140,12 @@ export const processUserPrompt = async (prompt: string) => {
         }
       `
     }],
-    temperature: 0.3
+    temperature: 0.5 //for balance between creativity and accuracy
   })
-  console.log(completion.choices[0].message.content)
+  return completion.choices[0].message.content
+}catch(error) {
+  logger.error(`Error processing user prompt: ${error} due to ${(error as Error).message}`)
+  throw error
+}
 }
 

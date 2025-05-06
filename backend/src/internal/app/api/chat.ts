@@ -11,9 +11,9 @@ export const processUserPromptPostHandler = async (req: Request, res: Response) 
             return
         }
         const response = await processUserPrompt(prompt)
-        res.status(200).json(response)
+        res.status(200).send(response)
     } catch (error) {
-        res.status(500).json({ error: "Failed to process user prompt", reason: (error as Error).message })
+        res.status(500).send({ error: "Failed to process user prompt", reason: (error as Error).message })
     }
 }
 
