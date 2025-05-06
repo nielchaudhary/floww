@@ -3,7 +3,10 @@ import { Spotlight } from './Spotlight';
 import {  TypewriterEffectSmooth } from './TypeWriterEffect';
 import { useNavigate } from 'react-router-dom';
 import { BottomGradient } from './SignupForm';
+import { Helmet } from 'react-helmet';
 export const Landing = () => {
+
+  
 
     const navigate = useNavigate();
     const words = [
@@ -44,6 +47,10 @@ export const Landing = () => {
      
 
         return (
+          <>
+          <Helmet>
+            <title>floww | Home</title>
+          </Helmet>
             <div className="relative bg-black flex flex-col items-center justify-center min-h-screen w-screen overflow-x-hidden overflow-y-hidden py-10">
                <Spotlight
                
@@ -64,8 +71,9 @@ export const Landing = () => {
                 </div>
               </div>
             </div>
+          </>
           );
-    
-}
+      
+  }
 
 

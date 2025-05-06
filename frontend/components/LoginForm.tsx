@@ -8,7 +8,7 @@ import { IconBrandGoogle } from "@tabler/icons-react";
 import { validateLoginForm, LoginFormData } from "../utils/SignupUtils";
 import { useState } from "react";
 import { toast } from "sonner";
-
+import { Helmet } from "react-helmet";
 
 export function LoginForm() {
   const [email, setEmail] = useState("");
@@ -26,6 +26,10 @@ export function LoginForm() {
     toast.success("Login successful!");
   };
   return (
+    <>
+    <Helmet>
+      <title>floww | Login</title>
+    </Helmet>
     <div className="relative bg-black flex flex-col items-center justify-center min-h-screen w-screen overflow-x-hidden overflow-y-hidden py-10"> 
     <Spotlight />
     <div className="shadow-input mx-auto w-full max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black">
@@ -84,5 +88,7 @@ export function LoginForm() {
     
     </div>
     </div>
+    </>
   );
+  
 }

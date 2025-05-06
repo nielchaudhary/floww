@@ -12,8 +12,7 @@ import {
 import { Spotlight } from "./Spotlight";
 import { BottomGradient } from "./SignupForm";
 import { motion } from "framer-motion";   
-import React from "react";
-
+import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 export function FeaturePage() {
     const navigate = useNavigate();
@@ -65,6 +64,10 @@ export function FeaturePage() {
         },
       ];
   return (
+    <>
+    <Helmet>
+      <title>floww | Features</title>
+    </Helmet>
     <div className="relative bg-black flex flex-col items-center justify-center min-h-screen w-screen overflow-x-hidden overflow-y-hidden py-10"> 
       <Spotlight />
 
@@ -86,6 +89,7 @@ export function FeaturePage() {
         </button>
       </motion.div>
     </div>
+    </>
   );
 }
 
@@ -127,5 +131,8 @@ const Feature = ({
         {description}
       </p>
     </div>
-  );
+    
+
+);
+
 };
