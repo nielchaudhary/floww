@@ -2,7 +2,7 @@ import { Spotlight } from "./Spotlight";
 import { IconCheck } from "@tabler/icons-react";
 import { BottomGradient } from './SignupForm';
 import { motion } from "framer-motion"; 
-
+import { useNavigate } from "react-router-dom";
 const tiers = [
     {
       name: 'dev',
@@ -43,6 +43,7 @@ function classNames(...classes: string[]) {
 }
 
 export const PricingSection = () => {
+  const navigate = useNavigate();
   return (
     <div className="bg-black flex flex-col relative items-center justify-center h-screen w-full overflow-hidden py-16 lg:px-8">
       <Spotlight />
@@ -78,7 +79,7 @@ export const PricingSection = () => {
 
             return (
               <div key={tier.id} className={outerContainerClasses}>
-                <div className={innerContainerClasses}>
+                <div className={innerContainerClasses} onClick={() => navigate('/payment')}>
                   <h3
                     id={tier.id}
                     className={classNames(isFeatured ? 'text-indigo-400' : 'text-indigo-400', 'text-base/7 font-semibold')}
