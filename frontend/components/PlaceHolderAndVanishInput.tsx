@@ -295,8 +295,15 @@ export function CreateNewPrompt() {
     console.log("submitted");
   };
   return (
+
+    <motion.div
+    initial={{ opacity: 0, y: 50 }} 
+    animate={{ opacity: 1, y: 0 }}   
+    transition={{ duration: 0.8, ease: "easeInOut" }} 
+    className="flex flex-col items-center w-full" 
+  >
     <div className="h-[40rem] flex flex-col justify-center  items-center px-4">
-      <h2 className="mb-10 sm:mb-10 text-xl text-center sm:text-5xl dark:text-white text-black font-bold">
+      <h2 className="mb-10 sm:mb-10 text-xl text-center sm:text-5xl text-gray-400 dark:text-gray-450 text-black font-bold">
         what's on your mind?
       </h2>
       <PlaceholdersAndVanishInput
@@ -305,5 +312,6 @@ export function CreateNewPrompt() {
         onSubmit={onSubmit}
       />
     </div>
+    </motion.div>
   );
 }
