@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet'
 import { useSignUp } from '@clerk/clerk-react'
 import { motion } from 'framer-motion'
 import { toast } from 'sonner'
+import React from 'react'
 export const UserVerificaiton = () => {
     const signUp = useSignUp()
     const navigate = useNavigate()
@@ -18,7 +19,7 @@ export const UserVerificaiton = () => {
     const [resendTimer , setResendTimer] = useState(30);
 
     useEffect(() => {
-        let interval: number;
+        let interval: NodeJS.Timeout;
         if (isResendDisabled && resendTimer > 0) {
           interval = setInterval(() => {
             setResendTimer((prev) => prev - 1);
@@ -44,8 +45,13 @@ export const UserVerificaiton = () => {
             code: verificationCode,
         });
         if(completeSignUp?.status === 'complete'){
-            toast.success('Verification successful!')
-            navigate('/chat')
+            toast.success('Verification successful!', {
+                duration: 1000,
+                onAutoClose: () => {
+                    navigate('/chat')
+                }
+            })
+           
         }else{
             toast.error('Verification failed!')
         }

@@ -110,6 +110,8 @@ export function SignupForm() {
 
     try {
       await signUp.create({
+        firstName: firstname,
+        lastName: lastname,
         emailAddress: email,
         password: password,
       })
@@ -201,7 +203,6 @@ export function SignupForm() {
               <BottomGradient />
             </button>
           </div>
-
       </div>
     </>
   );
