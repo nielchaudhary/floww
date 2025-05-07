@@ -4,10 +4,10 @@ import { BottomGradient, Input, LabelInputContainer } from './SignupForm'
 import {Spotlight} from './Spotlight'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet'
 import { useSignUp } from '@clerk/clerk-react'
 import { motion } from 'framer-motion'
 import { toast } from 'sonner'
-import React from 'react'
 export const UserVerificaiton = () => {
     const signUp = useSignUp()
     const navigate = useNavigate()
@@ -18,7 +18,7 @@ export const UserVerificaiton = () => {
     const [resendTimer , setResendTimer] = useState(30);
 
     useEffect(() => {
-        let interval: NodeJS.Timeout;
+        let interval: number;
         if (isResendDisabled && resendTimer > 0) {
           interval = setInterval(() => {
             setResendTimer((prev) => prev - 1);
@@ -52,6 +52,9 @@ export const UserVerificaiton = () => {
     }
     return (
         <div className="relative overflow-hidden flex flex-col items-center justify-center h-screen w-screen bg-black">
+            <Helmet>
+                <title>floww | Verification</title>
+            </Helmet>
             <Spotlight/>
             <motion.div
         initial={{ opacity: 0, y: 50 }} 

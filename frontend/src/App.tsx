@@ -11,7 +11,6 @@ import { PaymentPage } from '../components/PaymentPage';
 import { UserVerificaiton } from '../components/UserVerification';
 function App() {
 
-  // const publishableKey = "pk_test_am9pbnQtcGlrYS04Ny5jbGVyay5hY2NvdW50cy5kZXYk"
   return (  
       <BrowserRouter>
       <Toaster richColors position="top-center" />

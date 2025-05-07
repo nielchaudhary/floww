@@ -1,9 +1,14 @@
 import { motion } from "framer-motion";
 import { Spotlight } from "./Spotlight";
+import { Helmet } from "react-helmet";
 
 
 export const PaymentPage = () => {
     return (
+        <>
+        <Helmet>
+            <title>floww | Payment</title>
+        </Helmet>
         <div className="relative h-screen w-screen flex flex-col items-center justify-center bg-black overflow-hidden">
             
             <Spotlight />
@@ -17,5 +22,6 @@ export const PaymentPage = () => {
                 <h1 className="text-gray-400 text-3xl font-bold">so please check back soon!</h1>
             </motion.div>
         </div>
+        </>
     )
 }
