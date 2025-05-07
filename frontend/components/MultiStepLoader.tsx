@@ -65,22 +65,22 @@ const LoaderCore = ({
           >
             <div>
               {index > value && (
-                <CheckIcon className="text-black dark:text-white" />
+                <CheckIcon className="text-black dark:text-white font-bold" />
               )}
               {index <= value && (
                 <CheckFilled
                   className={cn(
-                    "text-black dark:text-white",
+                    "text-black dark:text-white font-bold",
                     value === index &&
-                      "text-black dark:text-lime-500 opacity-100"
+                      "text-black dark:text-lime-500 opacity-100 font-bold"
                   )}
                 />
               )}
             </div>
             <span
               className={cn(
-                "text-black dark:text-white",
-                value === index && "text-black dark:text-lime-500 opacity-100"
+                "text-black dark:text-white font-bold",
+                value === index && "text-black dark:text-lime-500 opacity-100 font-bold"
               )}
             >
               {loadingState.text}
@@ -164,7 +164,7 @@ export function MultiStateLoaderComponent(loadingStates : ILoadingState[]) {
 
       {loading && (
         <button
-          className="fixed top-4 right-4 text-black dark:text-white z-[120]"
+          className="fixed top-4 right-4 text-black dark:text-white z-[120] font-bold"
           onClick={() => setLoading(false)}
         >
           <IconSquareRoundedX className="h-10 w-10" />
