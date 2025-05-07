@@ -34,7 +34,7 @@ export const validateSignupForm = (formData: SignupFormData) => {
     }
 
 
-    const passwordErrors = [];
+    const passwordErrors  : string[]= [];
     if (!/[0-9]/.test(password)) {
         passwordErrors.push("number");
     }

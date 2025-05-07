@@ -91,7 +91,7 @@ export function SignupForm() {
     { text: "Almost ready to build crazy products..." }
   ];
 
-  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignupFormSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if(!signUp || !setActive) {
@@ -110,8 +110,6 @@ export function SignupForm() {
 
     try {
       await signUp.create({
-        firstName: firstname,
-        lastName: lastname,
         emailAddress: email,
         password: password,
       })
@@ -153,7 +151,7 @@ export function SignupForm() {
           Welcome to <span className="text-teal-700 dark:text-teal-750">floww</span> 💡
         </h2>
 
-        <form className="my-8" onSubmit={handleSubmit}>
+        <form className="my-8" onSubmit={handleSignupFormSubmit}>
           <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
             <LabelInputContainer>
               <Label htmlFor="firstname">First name</Label>

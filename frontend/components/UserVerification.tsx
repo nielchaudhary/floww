@@ -8,7 +8,7 @@ import { Helmet } from 'react-helmet'
 import { useSignUp } from '@clerk/clerk-react'
 import { motion } from 'framer-motion'
 import { toast } from 'sonner'
-import React from 'react'
+
 export const UserVerificaiton = () => {
     const signUp = useSignUp()
     const navigate = useNavigate()
@@ -19,7 +19,7 @@ export const UserVerificaiton = () => {
     const [resendTimer , setResendTimer] = useState(30);
 
     useEffect(() => {
-        let interval: NodeJS.Timeout;
+        let interval: number;
         if (isResendDisabled && resendTimer > 0) {
           interval = setInterval(() => {
             setResendTimer((prev) => prev - 1);
