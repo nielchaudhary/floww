@@ -144,7 +144,8 @@ export const processUserPrompt = async (prompt: string) => {
   })
   return completion.choices[0].message.content
 }catch(error) {
-  logger.error(`Error processing user prompt: ${error} due to ${(error as Error).message}`)
+  const errorMessage = error instanceof Error ? error.message : String(error)
+  logger.error(`Error processing user prompt: ${errorMessage}`)
   throw error
 }
 }
