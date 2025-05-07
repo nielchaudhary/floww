@@ -8,9 +8,12 @@ import { Toaster } from 'sonner';
 import { PricingSection } from '../components/PricingSection';
 import { NewPrompt } from '../components/NewPrompt';
 import { PaymentPage } from '../components/PaymentPage';
+import { UserVerificaiton } from '../components/UserVerification';
 function App() {
+
+  // const publishableKey = "pk_test_am9pbnQtcGlrYS04Ny5jbGVyay5hY2NvdW50cy5kZXYk"
   return (  
-    <BrowserRouter>
+      <BrowserRouter>
       <Toaster richColors position="top-center" />
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -21,9 +24,9 @@ function App() {
         <Route path="/pricing" element={<PricingSection />} />
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/new" element={<NewPrompt />} />
-
+        <Route path="/verify" element={<UserVerificaiton />} />
       </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
   );
 }
 
