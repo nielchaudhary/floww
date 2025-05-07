@@ -1,23 +1,19 @@
 import React, { useState } from "react";
-import {useSignUp} from '@clerk/clerk-react'
+import { useSignUp } from '@clerk/clerk-react';
 import { cn } from "../lib/utils";
 import { useMotionTemplate, useMotionValue, motion } from "framer-motion";
 import { validateSignupForm, SignupFormData } from "../utils/SignupUtils";
-import{
-    IconLogin,
-    IconUserPlus,
-  } from "@tabler/icons-react";
+import {
+  IconLogin,
+  IconUserPlus,
+} from "@tabler/icons-react";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Helmet } from "react-helmet";
+import { MultiStepLoader } from "./MultiStepLoader";
 
-
-
-
-export type InputProps = React.InputHTMLAttributes<HTMLInputElement>
-
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+export const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
   ({ className, type, ...props }, ref) => {
     const radius = 150;
     const [visible, setVisible] = React.useState(false);
@@ -62,10 +58,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 );
 Input.displayName = "Input";
 
-export { Input };
-
-
-const Label = React.forwardRef<
+export const Label = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
 >(({ className, ...props }, ref) => (
@@ -79,138 +72,133 @@ const Label = React.forwardRef<
   />
 ));
 Label.displayName = LabelPrimitive.Root.displayName;
- 
-export { Label };
-
-
-
-
 
 export function SignupForm() {
+  const navigate = useNavigate();
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false); // Add loading state for the loader
 
+  const { signUp, setActive } = useSignUp();
 
-
-    const navigate = useNavigate();
-    const [firstname, setFirstname] = useState("");
-    const [lastname, setLastname] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    const {signUp, setActive} = useSignUp();
+  // Define loading states for the signup process
+  const signupLoadingStates = [
+    { text: "Validating your information" },
+    { text: "Creating your account" },
+    { text: "Sending verification email" },
+    { text: "Setting up your floww profile" },
+    { text: "Almost ready to build crazy products..." }
+  ];
 
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if(!signUp || !setActive){
+    if(!signUp || !setActive) {
       return;
     }
 
+    if(validateSignupForm({
+      firstname,
+      email,
+      password,
+    } as SignupFormData) === false) {
+      return;
+    }
 
-    if( validateSignupForm({
-        firstname,
-        email,
-        password,
-      } as SignupFormData) === false) {
-        return;
-      }
+    setLoading(true);
 
-      try{
-       
-        const result = await signUp.create({
-          emailAddress: email,
-          password: password,
-        });
+    try {
+      await Promise.all([signUp.create({
+        emailAddress: email,
+        password: password,
+      })]);
 
-        await signUp.prepareVerification({strategy: "email_code"});
-        toast.success("Verification email sent!");
-        navigate("/verify");
-
-
-        console.log(result);
-
-        if(result?.status === "complete"){
-          await setActive({
-           session : result.createdSessionId
-          })
-          toast.success("Signup successful!");
-          navigate("/");
-          }
+      toast.success("Verification email sent!");
       
-        
-      } catch(error) {
-        console.error(error);
-      }
-    
-    
-    toast.success("Signup successful!"); 
+      setTimeout(() => {
+        navigate("/user/verify");
+      }, 1500);
+      
+    } catch(error) {
+      console.error(error);
+      setLoading(false); 
+      toast.error("Signup failed. Please try again.");
+    }
   };
+
   return (
     <>
-    <Helmet>
-      <title>floww | Signup</title>
-    </Helmet>
-    <div className="shadow-input mx-auto w-full max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black">
-      <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
-        Welcome to <span className="text-teal-700 dark:text-teal-750">floww</span> 💡
-      </h2>
+      <Helmet>
+        <title>floww | Signup</title>
+      </Helmet>
+      
+      {/* Add the MultiStepLoader here */}
+      <MultiStepLoader 
+        loadingStates={signupLoadingStates} 
+        loading={loading} 
+        duration={1500} 
+        loop={false}
+      />
+      
+      <div className="shadow-input mx-auto w-full max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black">
+        <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
+          Welcome to <span className="text-teal-700 dark:text-teal-750">floww</span> 💡
+        </h2>
 
-      <form className="my-8" onSubmit={handleSubmit}>
-        <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
-          <LabelInputContainer>
-            <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Cracked" type="text" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
+        <form className="my-8" onSubmit={handleSubmit}>
+          <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
+            <LabelInputContainer>
+              <Label htmlFor="firstname">First name</Label>
+              <Input id="firstname" placeholder="Cracked" type="text" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
+            </LabelInputContainer>
+            <LabelInputContainer>
+              <Label htmlFor="lastname">Last name</Label>
+              <Input id="lastname" placeholder="Builder" type="text" value={lastname} onChange={(e) => setLastname(e.target.value)} />
+            </LabelInputContainer>
+          </div>
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" placeholder="buildcrazyproducts@flow.app" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
           </LabelInputContainer>
-          <LabelInputContainer>
-            <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Builder" type="text" value={lastname} onChange={(e) => setLastname(e.target.value)} />
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="password">Password</Label>
+            <Input id="password" placeholder="••••••••" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </LabelInputContainer>
-        </div>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" placeholder="buildcrazyproducts@flow.app" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </LabelInputContainer>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </LabelInputContainer>
-         
-
-        <button
-          className="group/btn relative flex h-10 w-full items-center justify-center space-x-2 rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
-          type="submit">
-            <IconUserPlus className="h-4 w-4 text-neutral-300" /> 
-
-
-
-
-          Sign up
-
-     
-          <BottomGradient />
-        </button>
-
-        <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
-       
-      </form>
-      <div className="mt-8 flex justify-center text-lg font-bold text-neutral-600 dark:text-neutral-300">
-        Already have an account?
-      </div>
-      <div className="flex justify-center">
-        <button
-            className="group/btn mt-2 shadow-input relative flex h-10 w-40 items-center justify-center space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-            type="button" 
-            onClick={() => navigate("/login")}
+           
+          <button
+            className="group/btn relative flex h-10 w-full items-center justify-center space-x-2 rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
+            type="submit"
+            disabled={loading} // Disable button when loading
           >
-            <IconLogin className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-sm text-neutral-700 dark:text-neutral-300">
-              Login
-            </span>
+            <IconUserPlus className="h-4 w-4 text-neutral-300" /> 
+            Sign up
             <BottomGradient />
           </button>
-        </div>
 
-    
-    </div>
+          <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
+         
+        </form>
+        <div className="mt-8 flex justify-center text-lg font-bold text-neutral-600 dark:text-neutral-300">
+          Already have an account?
+        </div>
+        <div className="flex justify-center">
+          <button
+              className="group/btn mt-2 shadow-input relative flex h-10 w-40 items-center justify-center space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
+              type="button" 
+              onClick={() => navigate("/login")}
+              disabled={loading} // Disable button when loading
+            >
+              <IconLogin className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+              <span className="text-sm text-neutral-700 dark:text-neutral-300">
+                Login
+              </span>
+              <BottomGradient />
+            </button>
+          </div>
+
+      </div>
     </>
   );
 }
@@ -237,4 +225,3 @@ export const LabelInputContainer = ({
     </div>
   );
 };
-
