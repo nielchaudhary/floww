@@ -1,14 +1,10 @@
 import React, { useState } from "react";
+import {useSignUp} from '@clerk/clerk-react'
 import { cn } from "../lib/utils";
 import { useMotionTemplate, useMotionValue, motion } from "framer-motion";
 import { validateSignupForm, SignupFormData } from "../utils/SignupUtils";
 import{
-
-
-    IconBrandGithub,
-    IconBrandGoogle,
     IconLogin,
-    
     IconUserPlus,
   } from "@tabler/icons-react";
 import * as LabelPrimitive from "@radix-ui/react-label";
@@ -18,11 +14,12 @@ import { Helmet } from "react-helmet";
 
 
 
+
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
-    const radius = 150; 
+    const radius = 150;
     const [visible, setVisible] = React.useState(false);
 
     const mouseX = useMotionValue(0);
@@ -53,7 +50,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           type={type}
           className={cn(
-            `shadow-input dark:placeholder-text-neutral-600 flex h-10 w-full rounded-md border-none bg-gray-50 px-3 py-2 text-sm text-black transition duration-400 group-hover/input:shadow-none file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-400 focus-visible:ring-[2px] focus-visible:ring-neutral-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600`,
+            `shadow-input dark:placeholder-text-neutral-600 flex h-10 w-full rounded-md border-none bg-gray-50 px-3 py-2 text-sm font-bold text-black transition duration-400 group-hover/input:shadow-none file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-400 focus-visible:ring-[2px] focus-visible:ring-neutral-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600`,
             className,
           )}
           ref={ref}
@@ -92,23 +89,56 @@ export { Label };
 export function SignupForm() {
 
 
+
     const navigate = useNavigate();
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const {signUp, setActive} = useSignUp();
+
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if(!signUp || !setActive){
+      return;
+    }
 
 
     if( validateSignupForm({
         firstname,
-        lastname,
         email,
         password,
       } as SignupFormData) === false) {
         return;
+      }
+
+      try{
+       
+        const result = await signUp.create({
+          emailAddress: email,
+          password: password,
+        });
+
+        await signUp.prepareVerification({strategy: "email_code"});
+        toast.success("Verification email sent!");
+        navigate("/verify");
+
+
+        console.log(result);
+
+        if(result?.status === "complete"){
+          await setActive({
+           session : result.createdSessionId
+          })
+          toast.success("Signup successful!");
+          navigate("/");
+          }
+      
+        
+      } catch(error) {
+        console.error(error);
       }
     
     
@@ -160,34 +190,10 @@ export function SignupForm() {
         </button>
 
         <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
-
-        <div className="flex space-x-4 flex-row">
-          <button
-            className="group/btn shadow-input relative flex h-10 w-full items-center justify-center space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-            type="button" 
-          >
-            <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-sm text-neutral-700 dark:text-neutral-300">
-              GitHub
-            </span>
-            <BottomGradient />
-          </button>
-          <button
-            className="group/btn shadow-input relative flex h-10 w-full items-center justify-center space-x-2 rounded-md bg-gray-50 px-4 font-medium text-black dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]"
-            type="button"
-          >
-            <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-sm text-neutral-700 dark:text-neutral-300">
-              Google
-            </span>
-            <BottomGradient />
-          </button>
-           
-        </div>
        
       </form>
       <div className="mt-8 flex justify-center text-lg font-bold text-neutral-600 dark:text-neutral-300">
-        Already have an account? 
+        Already have an account?
       </div>
       <div className="flex justify-center">
         <button
