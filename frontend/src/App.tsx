@@ -24,7 +24,7 @@ function App() {
         <Route path="/pricing" element={<PricingSection />} />
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/new" element={<NewPrompt />} />
-        <Route path="/verify" element={<UserVerificaiton />} />
+        <Route path="/user/verify" element={<UserVerificaiton />} />
       </Routes>
       </BrowserRouter>
   );
