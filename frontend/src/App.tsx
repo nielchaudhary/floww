@@ -4,15 +4,15 @@ import { FeaturePage } from '../components/FeaturePage';
 import { GetStarted } from '../components/GetStarted';
 import { ChatPage } from '../components/Chat';
 import { LoginForm } from '../components/LoginForm';
-import { Toaster } from 'sonner'; 
+import { Toaster } from 'sonner';
 import { PricingSection } from '../components/PricingSection';
 import { NewPrompt } from '../components/NewPrompt';
 import { PaymentPage } from '../components/PaymentPage';
-import { UserVerificaiton } from '../components/UserVerification';
-function App() {
+import { UserVerification } from '../components/UserVerification';
 
-  return (  
-      <BrowserRouter>
+function App() {
+  return (
+    <BrowserRouter>
       <Toaster richColors position="top-center" />
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -23,9 +23,9 @@ function App() {
         <Route path="/pricing" element={<PricingSection />} />
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/new" element={<NewPrompt />} />
-        <Route path="/user/verify" element={<UserVerificaiton />} />
+        <Route path="/user/verify" element={<UserVerification />} />
       </Routes>
-      </BrowserRouter>
+    </BrowserRouter>
   );
 }
 
