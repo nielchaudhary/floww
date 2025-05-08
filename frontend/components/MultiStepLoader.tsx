@@ -1,9 +1,9 @@
-import React from "react";
-import { IconSquareRoundedX } from "@tabler/icons-react";
+import React from 'react';
+import { IconSquareRoundedX } from '@tabler/icons-react';
 
-import { cn } from "../lib/utils";
-import { AnimatePresence, motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { cn } from '../lib/utils';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 const CheckIcon = ({ className }: { className?: string }) => {
   return (
@@ -13,7 +13,7 @@ const CheckIcon = ({ className }: { className?: string }) => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={cn("w-6 h-6 ", className)}
+      className={cn('w-6 h-6 ', className)}
     >
       <path d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
     </svg>
@@ -26,7 +26,7 @@ const CheckFilled = ({ className }: { className?: string }) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className={cn("w-6 h-6 ", className)}
+      className={cn('w-6 h-6 ', className)}
     >
       <path
         fillRule="evenodd"
@@ -57,29 +57,26 @@ const LoaderCore = ({
         return (
           <motion.div
             key={index}
-            className={cn("text-left flex gap-2 mb-4")}
+            className={cn('text-left flex gap-2 mb-4')}
             initial={{ opacity: 0, y: -(value * 40) }}
             animate={{ opacity: opacity, y: -(value * 40) }}
             transition={{ duration: 0.5 }}
           >
             <div>
-              {index > value && (
-                <CheckIcon className="text-black dark:text-white font-bold" />
-              )}
+              {index > value && <CheckIcon className="text-black dark:text-white font-bold" />}
               {index <= value && (
                 <CheckFilled
                   className={cn(
-                    "text-black dark:text-white font-bold",
-                    value === index &&
-                      "text-black dark:text-lime-500 opacity-100 font-bold"
+                    'text-black dark:text-white font-bold',
+                    value === index && 'text-black dark:text-lime-500 opacity-100 font-bold'
                   )}
                 />
               )}
             </div>
             <span
               className={cn(
-                "text-black dark:text-white font-bold",
-                value === index && "text-black dark:text-lime-500 opacity-100 font-bold"
+                'text-black dark:text-white font-bold',
+                value === index && 'text-black dark:text-lime-500 opacity-100 font-bold'
               )}
             >
               {loadingState.text}
@@ -147,19 +144,15 @@ export const MultiStepLoader = ({
   );
 };
 
-
-
-
 export interface ILoadingState {
-    text : string;
+  text: string;
 }
 
-export function MultiStateLoaderComponent(loadingStates : ILoadingState[]) {
-  const [loading, setLoading] = useState(false);    
+export function MultiStateLoaderComponent(loadingStates: ILoadingState[]) {
+  const [loading, setLoading] = useState(false);
   return (
     <div className="w-full h-[60vh] flex items-center justify-center">
       <MultiStepLoader loadingStates={loadingStates} loading={loading} duration={2000} />
-
 
       {loading && (
         <button
@@ -172,4 +165,3 @@ export function MultiStateLoaderComponent(loadingStates : ILoadingState[]) {
     </div>
   );
 }
-

@@ -1,42 +1,43 @@
-import { Spotlight } from "./Spotlight";
-import { IconCheck } from "@tabler/icons-react";
+import { Spotlight } from './Spotlight';
+import { IconCheck } from '@tabler/icons-react';
 import { BottomGradient } from './SignupForm';
-import { motion } from "framer-motion"; 
-import { useNavigate } from "react-router-dom";
+import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 const tiers = [
-    {
-      name: 'dev',
-      id: 'tier-dev',
-      href: '#',
-      priceMonthly: '$15',
-      description: "Perfect for individual creators and developers building their workflow visualizations.",
-      features: [
-        'Up to 20 workflow designs',
-        'Basic AI-powered diagram creation',
-        'Export to PNG and PDF',
-        'Community support',
-        'Standard system components library',
-        'Basic reasoning explanations'
-      ],
-      featured: false,
-    },
-    {
-      name: 'pro',
-      id: 'tier-pro',
-      href: '#',
-      priceMonthly: '$50',
-      description: 'Enhanced capabilities and support for professional teams and businesses.',
-      features: [
-        'all dev features',
-        '24/7 priority customer support',
-        'Detailed system reasoning',
-        'Secure team collaboration',
-        '100% uptime guarantee',
-        'Custom integrations'
-      ],
-      featured: true,
-    },
-  ];
+  {
+    name: 'dev',
+    id: 'tier-dev',
+    href: '#',
+    priceMonthly: '$15',
+    description:
+      'Perfect for individual creators and developers building their workflow visualizations.',
+    features: [
+      'Up to 20 workflow designs',
+      'Basic AI-powered diagram creation',
+      'Export to PNG and PDF',
+      'Community support',
+      'Standard system components library',
+      'Basic reasoning explanations',
+    ],
+    featured: false,
+  },
+  {
+    name: 'pro',
+    id: 'tier-pro',
+    href: '#',
+    priceMonthly: '$50',
+    description: 'Enhanced capabilities and support for professional teams and businesses.',
+    features: [
+      'all dev features',
+      '24/7 priority customer support',
+      'Detailed system reasoning',
+      'Secure team collaboration',
+      '100% uptime guarantee',
+      'Custom integrations',
+    ],
+    featured: true,
+  },
+];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -50,8 +51,8 @@ export const PricingSection = () => {
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
-        className="relative z-10 w-full max-w-4xl px-4" 
+        transition={{ duration: 0.8, ease: 'easeInOut' }}
+        className="relative z-10 w-full max-w-4xl px-4"
       >
         <div className="mx-auto max-w-4xl text-center mb-8">
           <h2 className="text-sm font-bold tracking-tight text-gray-400 sm:text-2xl">
@@ -64,17 +65,15 @@ export const PricingSection = () => {
             const isFeatured = tier.featured;
 
             const outerContainerClasses = classNames(
-              'rounded-3xl relative mb-6 lg:mb-0', 
+              'rounded-3xl relative mb-6 lg:mb-0',
               isFeatured
                 ? 'p-1 moving-border-gradient'
-                : 'p-0 bg-black-500/60 sm:mx-8 lg:mx-0 ring-1 ring-white/10',
+                : 'p-0 bg-black-500/60 sm:mx-8 lg:mx-0 ring-1 ring-white/10'
             );
 
             const innerContainerClasses = classNames(
               'p-6 sm:p-8 h-full',
-              isFeatured
-                ? 'bg-black rounded-[calc(1.5rem-1px)]'
-                : 'bg-transparent rounded-3xl'
+              isFeatured ? 'bg-black rounded-[calc(1.5rem-1px)]' : 'bg-transparent rounded-3xl'
             );
 
             return (
@@ -82,7 +81,10 @@ export const PricingSection = () => {
                 <div className={innerContainerClasses} onClick={() => navigate('/payment')}>
                   <h3
                     id={tier.id}
-                    className={classNames(isFeatured ? 'text-indigo-400' : 'text-indigo-400', 'text-base/7 font-semibold')}
+                    className={classNames(
+                      isFeatured ? 'text-indigo-400' : 'text-indigo-400',
+                      'text-base/7 font-semibold'
+                    )}
                   >
                     {tier.name}
                   </h3>
@@ -90,28 +92,43 @@ export const PricingSection = () => {
                     <span
                       className={classNames(
                         isFeatured ? 'text-white' : 'text-white',
-                        'text-5xl font-semibold tracking-tight',
+                        'text-5xl font-semibold tracking-tight'
                       )}
                     >
                       {tier.priceMonthly}
                     </span>
-                    <span className={classNames(isFeatured ? 'text-gray-400' : 'text-gray-400', 'text-base font-bold')}>/month</span>
+                    <span
+                      className={classNames(
+                        isFeatured ? 'text-gray-400' : 'text-gray-400',
+                        'text-base font-bold'
+                      )}
+                    >
+                      /month
+                    </span>
                   </p>
-                  <p className={classNames(isFeatured ? 'text-gray-300' : 'text-gray-300', 'mt-6 text-base/7 font-bold')}>
+                  <p
+                    className={classNames(
+                      isFeatured ? 'text-gray-300' : 'text-gray-300',
+                      'mt-6 text-base/7 font-bold'
+                    )}
+                  >
                     {tier.description}
                   </p>
                   <ul
                     role="list"
                     className={classNames(
                       isFeatured ? 'text-gray-300' : 'text-gray-300',
-                      'mt-6 space-y-3 text-sm/6 sm:mt-8 font-bold',
+                      'mt-6 space-y-3 text-sm/6 sm:mt-8 font-bold'
                     )}
                   >
                     {tier.features.map((feature) => (
                       <li key={feature} className="flex gap-x-3">
                         <IconCheck
                           aria-hidden="true"
-                          className={classNames(isFeatured ? 'text-gray-400' : 'text-gray-400', 'h-6 w-5 flex-none font-bold')}
+                          className={classNames(
+                            isFeatured ? 'text-gray-400' : 'text-gray-400',
+                            'h-6 w-5 flex-none font-bold'
+                          )}
                         />
                         {feature}
                       </li>

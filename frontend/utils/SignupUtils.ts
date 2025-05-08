@@ -60,9 +60,9 @@ export const validateLoginForm = (formData: LoginFormData) => {
     if (!email || !password) {
         toast.error("Please fill in all fields.");
         return false;
-    }
+  }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         toast.error("Please enter a valid email address format.");
         return false;
