@@ -147,6 +147,11 @@ export function SignupForm() {
       />
       
       <div className="shadow-input mx-auto w-full max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }} 
+          animate={{ opacity: 1, y: 0 }}   
+          transition={{ duration: 0.8, ease: "easeInOut" }} 
+        >
         <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
           Welcome to <span className="text-teal-700 dark:text-teal-750">floww</span> 💡
         </h2>
@@ -201,6 +206,7 @@ export function SignupForm() {
               <BottomGradient />
             </button>
           </div>
+        </motion.div>
       </div>
     </>
   );
