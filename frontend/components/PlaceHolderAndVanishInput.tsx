@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from '../lib/utils';
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 export function PlaceholdersAndVanishInput({
   placeholders,
@@ -13,7 +14,9 @@ export function PlaceholdersAndVanishInput({
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }) {
+  const navigate = useNavigate();
   const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
+  const [animationComplete, setAnimationComplete] = useState(false);
 
   const intervalRef = useRef<number | null>(null);
   const startAnimation = () => {
@@ -95,6 +98,12 @@ export function PlaceholdersAndVanishInput({
     draw();
   }, [value, draw]);
 
+  useEffect(() => {
+    if (animationComplete) {
+      navigate('/chat');
+    }
+  }, [animationComplete, navigate]);
+
   const animate = (start: number) => {
     const animateFrame = (pos: number = 0) => {
       requestAnimationFrame(() => {
@@ -134,6 +143,7 @@ export function PlaceholdersAndVanishInput({
         } else {
           setValue('');
           setAnimating(false);
+          setAnimationComplete(true);
         }
       });
     };
