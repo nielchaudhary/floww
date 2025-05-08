@@ -9,7 +9,8 @@ import { useSignUp } from '@clerk/clerk-react'
 import { motion } from 'framer-motion'
 import { toast } from 'sonner'
 
-export const UserVerificaiton = () => {
+
+export const UserVerification = () => {
     const signUp = useSignUp()
     const navigate = useNavigate()
     const [verificationCode, setVerificationCode] = useState('')
@@ -19,7 +20,7 @@ export const UserVerificaiton = () => {
     const [resendTimer , setResendTimer] = useState(30);
 
     useEffect(() => {
-        let interval: number;
+        let interval: NodeJS.Timeout;
         if (isResendDisabled && resendTimer > 0) {
           interval = setInterval(() => {
             setResendTimer((prev) => prev - 1);
@@ -40,6 +41,7 @@ export const UserVerificaiton = () => {
             return
         }
 
+        try {
         
         const completeSignUp = await signUp.signUp?.attemptEmailAddressVerification({
             code: verificationCode,
@@ -55,6 +57,15 @@ export const UserVerificaiton = () => {
         }else{
             toast.error('Verification failed!')
         }
+    } catch (error) {
+
+        if(error.message?.includes("Incorrect code")){
+            toast.error('Incorrect verification code')
+        }else{
+            toast.error('Verification failed!')
+        }
+        
+    }
     }
     return (
         <div className="relative overflow-hidden flex flex-col items-center justify-center h-screen w-screen bg-black">
