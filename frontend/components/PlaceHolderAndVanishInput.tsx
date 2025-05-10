@@ -280,9 +280,9 @@ export function PlaceholdersAndVanishInput({
 export function CreateNewPrompt() {
   const placeholders = [
     'Design a new MCP Architecture',
-    'Create a workflow for user auth',
-    'Visualize an e-commerce checkout process',
-    'How do I design a scalable data pipeline?',
+    'Design system architecture for user auth',
+    'Design a video streaming service',
+    'Design a scalable data pipeline',
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -300,7 +300,7 @@ export function CreateNewPrompt() {
       className="flex flex-col items-center w-full"
     >
       <div className="h-[40rem] flex flex-col justify-center  items-center px-4">
-        <h2 className="mb-10 sm:mb-10 text-xl text-center sm:text-5xl text-gray-400 dark:text-gray-450 text-black font-bold">
+        <h2 className="mb-10 sm:mb-10 text-xl text-center sm:text-5xl text-gray-300 dark:text-gray-350 text-black font-bold">
           what's on your mind?
         </h2>
         <PlaceholdersAndVanishInput

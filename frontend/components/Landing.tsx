@@ -4,36 +4,35 @@ import { useNavigate } from 'react-router-dom';
 import { BottomGradient } from './SignupForm';
 import { Helmet } from 'react-helmet';
 import { useUser } from '@clerk/clerk-react';
+import { motion } from 'framer-motion';
+import React from 'react';
 export const Landing = () => {
   const navigate = useNavigate();
   const { isSignedIn } = useUser();
   const words = [
     {
-      text: 'turn',
-      className: 'text-gray-400 dark:text-gray-450',
+      text: 'design',
+      className: 'text-gray-300 dark:text-gray-350',
     },
     {
-      text: 'ideas',
-      className: 'text-gray-400 dark:text-gray-450',
+      text: 'your',
+      className: 'text-gray-300 dark:text-gray-350',
     },
     {
-      text: 'into',
-      className: 'text-gray-400 dark:text-gray-450',
+      text: 'system',
+      className: 'text-gray-300 dark:text-gray-350',
     },
     {
-      text: 'workflows',
-      className: 'text-gray-400 dark:text-gray-450',
+      text: 'architecture',
+      className: 'text-gray-300 dark:text-gray-350',
     },
     {
-      text: 'with',
-      className: 'text-gray-400 dark:text-gray-450',
+      text: 'using',
+      className: 'text-gray-300 dark:text-gray-350',
     },
     {
-      text: 'floww',
-      className: 'text-teal-700 dark:text-teal-750',
-    },
-    {
-      text: '💡',
+      text: 'AI',
+      className: 'text-gray-300 dark:text-gray-350',
     },
   ];
 
@@ -45,6 +44,14 @@ export const Landing = () => {
       <div className="relative bg-black flex flex-col items-center justify-center min-h-screen w-screen overflow-x-hidden overflow-y-hidden py-10">
         <Spotlight />
         <div className="relative z-10 flex flex-col items-center justify-center">
+          <motion.h1
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="text-teal-700 dark:text-teal-750 text-6xl  font-bold"
+          >
+            floww 💡
+          </motion.h1>
           <p className="text-neutral-600 dark:text-neutral-200 text-xs sm:text-base  "></p>
           <TypewriterEffectSmooth words={words} />
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4">
