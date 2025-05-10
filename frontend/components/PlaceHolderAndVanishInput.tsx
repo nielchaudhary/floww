@@ -278,10 +278,11 @@ export function PlaceholdersAndVanishInput({
 }
 
 export function CreateNewPrompt() {
+  const navigate = useNavigate();
   const placeholders = [
     'Design a new MCP Architecture',
     'Design system architecture for user auth',
-    'Design a video streaming service',
+    'Design a social media platform',
     'Design a scalable data pipeline',
   ];
 
@@ -308,6 +309,39 @@ export function CreateNewPrompt() {
           onChange={handleChange}
           onSubmit={onSubmit}
         />
+        <div className="w-full mt-10">
+          <h3 className="text-center text-gray-300 mb-4 font-medium font-bold">
+            try prompts like these →
+          </h3>
+          <div className="flex flex-row justify-center gap-4">
+            <button
+              className="group/btn text-white text-sm font-bold rounded-xl px-4 py-2 font-medium bg-gradient-to-br from-black to-neutral-600 shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset] cursor-pointer"
+              onClick={() => {
+                navigate('/chat');
+              }}
+            >
+              Design an AI Agent
+            </button>
+            <button
+              className="group/btn text-white text-sm font-bold rounded-xl px-4 py-2 font-medium bg-gradient-to-br from-black to-neutral-600 shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset] cursor-pointer"
+              onClick={() => {
+                navigate('/chat');
+              }}
+            >
+              Design an application like Spotify
+            </button>
+            <div className="flex flex-col items-center">
+              <button
+                className="group/btn text-white text-sm font-bold rounded-xl px-4 py-2 font-medium bg-gradient-to-br from-black to-neutral-600 shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset] cursor-pointer"
+                onClick={() => {
+                  navigate('/chat');
+                }}
+              >
+                Design a video streaming service
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </motion.div>
   );
