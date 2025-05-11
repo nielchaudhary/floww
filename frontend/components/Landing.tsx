@@ -12,27 +12,33 @@ export const Landing = () => {
   const words = [
     {
       text: 'design',
-      className: 'text-gray-300 dark:text-gray-350',
+      className:
+        'text-gray-300 dark:text-gray-350 text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl',
     },
     {
       text: 'your',
-      className: 'text-gray-300 dark:text-gray-350',
+      className:
+        'text-gray-300 dark:text-gray-350 text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl',
     },
     {
       text: 'system',
-      className: 'text-gray-300 dark:text-gray-350',
+      className:
+        'text-gray-300 dark:text-gray-350 text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl',
     },
     {
       text: 'architecture',
-      className: 'text-gray-300 dark:text-gray-350',
+      className:
+        'text-gray-300 dark:text-gray-350 text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl',
     },
     {
       text: 'using',
-      className: 'text-gray-300 dark:text-gray-350',
+      className:
+        'text-gray-300 dark:text-gray-350 text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl',
     },
     {
       text: 'AI',
-      className: 'text-gray-300 dark:text-gray-350',
+      className:
+        'text-gray-300 dark:text-gray-350 text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl',
     },
   ];
 
@@ -41,14 +47,17 @@ export const Landing = () => {
       <Helmet>
         <title>floww | Home</title>
       </Helmet>
-      <div className="relative bg-black flex flex-col items-center justify-center min-h-screen w-screen overflow-x-hidden overflow-y-hidden py-10">
+      <div className="relative bg-black flex flex-col items-center justify-center min-h-screen w-screen overflow-x-hidden overflow-y-hidden py-10 max-width-7xl">
         <Spotlight />
         <div className="relative z-10 flex flex-col items-center justify-center">
           <motion.h1
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="text-teal-700 dark:text-teal-750 text-6xl  font-bold"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              duration: 1,
+              ease: 'easeIn',
+            }}
+            className="text-teal-700 dark:text-teal-750 text-4xl sm:text-5xl md:text-6xl font-bold"
           >
             floww 💡
           </motion.h1>

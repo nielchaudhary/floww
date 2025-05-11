@@ -1,6 +1,8 @@
 import { cn } from '../lib/utils';
 import { motion, stagger, useAnimate, useInView } from 'framer-motion';
 import { useEffect } from 'react';
+import React from 'react';
+
 export const TypewriterEffect = ({
   words,
   className,
@@ -109,6 +111,7 @@ export const TypewriterEffectSmooth = ({
       text: word.text.split(''),
     };
   });
+
   const renderWords = () => {
     return (
       <div>
@@ -118,7 +121,7 @@ export const TypewriterEffectSmooth = ({
               {word.text.map((char, index) => (
                 <span
                   key={`char-${index}`}
-                  className={cn(`dark:text-white text-black `, word.className)}
+                  className={cn(`dark:text-white text-black`, word.className)}
                 >
                   {char}
                 </span>
@@ -148,13 +151,13 @@ export const TypewriterEffectSmooth = ({
         }}
       >
         <div
-          className="text-xs sm:text-base md:text-xl lg:text:3xl xl:text-5xl font-bold"
+          className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-5xl font-bold leading-tight"
           style={{
             whiteSpace: 'nowrap',
           }}
         >
-          {renderWords()}{' '}
-        </div>{' '}
+          {renderWords()}
+        </div>
       </motion.div>
       <motion.span
         initial={{
@@ -165,11 +168,13 @@ export const TypewriterEffectSmooth = ({
         }}
         transition={{
           duration: 0.8,
-
           repeat: Infinity,
           repeatType: 'reverse',
         }}
-        className={cn('block rounded-sm w-[4px]  h-4 sm:h-6 xl:h-12 bg-blue-500', cursorClassName)}
+        className={cn(
+          'block rounded-sm w-[3px] h-6 sm:h-8 md:h-10 lg:h-12 bg-blue-500',
+          cursorClassName
+        )}
       ></motion.span>
     </div>
   );
