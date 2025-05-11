@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Spotlight } from './Spotlight';
 import { Helmet } from 'react-helmet';
+import React from 'react';
 
 export const PaymentPage = () => {
   return (
