@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet';
 import { useSignUp } from '@clerk/clerk-react';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
+import React from 'react';
 
 export const UserVerification = () => {
   const signUp = useSignUp();

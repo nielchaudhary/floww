@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Spotlight } from './Spotlight';
+import React from 'react';
 import { SignupForm, BottomGradient } from './SignupForm';
 export const GetStarted = () => {
   const navigate = useNavigate();
