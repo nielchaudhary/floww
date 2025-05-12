@@ -1,7 +1,7 @@
 import { cn } from '../lib/utils';
 import React from 'react';
 
-export function DotBackgroundDemo() {
+export function DotBackground() {
   return (
     <div className="relative flex h-[50rem] w-full items-center justify-center bg-white dark:bg-black">
       <div
