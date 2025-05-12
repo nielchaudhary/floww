@@ -4,17 +4,17 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from '../lib/utils';
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 
 export function PlaceholdersAndVanishInput({
   placeholders,
   onChange,
+  onSubmit,
 }: {
   placeholders: string[];
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }) {
-  const navigate = useNavigate();
   const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
   const [animationComplete, setAnimationComplete] = useState(false);
 
@@ -98,12 +98,6 @@ export function PlaceholdersAndVanishInput({
     draw();
   }, [value, draw]);
 
-  useEffect(() => {
-    if (animationComplete) {
-      navigate('/chat');
-    }
-  }, [animationComplete, navigate]);
-
   const animate = (start: number) => {
     const animateFrame = (pos: number = 0) => {
       requestAnimationFrame(() => {
@@ -173,7 +167,9 @@ export function PlaceholdersAndVanishInput({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     vanishAndSubmit();
+    onSubmit(e);
   };
+
   return (
     <form
       className={cn(
@@ -190,6 +186,7 @@ export function PlaceholdersAndVanishInput({
         ref={canvasRef}
       />
       <input
+        name="input"
         onChange={(e) => {
           if (!animating) {
             setValue(e.target.value);
@@ -289,10 +286,16 @@ export function CreateNewPrompt() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
   };
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('submitted');
+    const promptValue = new FormData(e.currentTarget).get('input');
+
+    navigate('/flow', {
+      state: promptValue,
+    });
   };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -300,7 +303,7 @@ export function CreateNewPrompt() {
       transition={{ duration: 0.8, ease: 'easeInOut' }}
       className="flex flex-col items-center w-full"
     >
-      <div className="h-[40rem] flex flex-col justify-center  items-center px-4">
+      <div className="h-[40rem] flex flex-col justify-center items-center px-4">
         <h2 className="mb-10 sm:mb-10 text-xl text-center sm:text-5xl text-gray-300 dark:text-gray-350 text-black font-bold">
           what's on your mind?
         </h2>
@@ -317,7 +320,9 @@ export function CreateNewPrompt() {
             <button
               className="group/btn text-white text-sm font-bold rounded-xl px-4 py-2 font-medium bg-gradient-to-br from-black to-neutral-600 shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset] cursor-pointer"
               onClick={() => {
-                navigate('/chat');
+                navigate('/flow', {
+                  state: 'Design an AI Agent',
+                });
               }}
             >
               Design an AI Agent
@@ -325,7 +330,9 @@ export function CreateNewPrompt() {
             <button
               className="group/btn text-white text-sm font-bold rounded-xl px-4 py-2 font-medium bg-gradient-to-br from-black to-neutral-600 shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset] cursor-pointer"
               onClick={() => {
-                navigate('/chat');
+                navigate('/flow', {
+                  state: 'Design an application like spotify',
+                });
               }}
             >
               Design an application like Spotify
@@ -334,7 +341,9 @@ export function CreateNewPrompt() {
               <button
                 className="group/btn text-white text-sm font-bold rounded-xl px-4 py-2 font-medium bg-gradient-to-br from-black to-neutral-600 shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset] cursor-pointer"
                 onClick={() => {
-                  navigate('/chat');
+                  navigate('/flow', {
+                    state: 'Design a video streaming service',
+                  });
                 }}
               >
                 Design a video streaming service
