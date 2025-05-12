@@ -3,6 +3,7 @@ import {  processUserPrompt, processUserPromptStream } from "../processOpenRoute
 import { isNullOrUndefined } from "../../../pkg/data-utils"
 import { isEmpty } from "lodash"
 
+
 export const processUserPromptStreamPostHandler = async (req: Request, res: Response) => {
     try {
         const { prompt } = req.body as { prompt: string };
@@ -10,60 +11,55 @@ export const processUserPromptStreamPostHandler = async (req: Request, res: Resp
             return res.status(400).json({ error: "Prompt is a required string, and cannot be empty" });
         }
 
-        if (req.query.stream === 'true') {
-            res.setHeader('Content-Type', 'text/event-stream');
-            res.setHeader('Cache-Control', 'no-cache');
-            res.setHeader('Connection', 'keep-alive');
-            res.flushHeaders();
+        res.setHeader('Content-Type', 'text/event-stream');
+        res.setHeader('Cache-Control', 'no-cache');
+        res.setHeader('Connection', 'keep-alive');
+        res.flushHeaders();
 
-            let completeResponse = '';
+        let completeResponse = '';
 
+        const handleChunk = (chunk: string) => {
+            completeResponse += chunk;
+            res.write(`data: ${JSON.stringify({ chunk })}\n\n`);
+        };
+
+        const handleError = (error: Error) => {
+            console.error("Stream error:", error);
+            res.write(`event: error\ndata: ${JSON.stringify({
+                error: "Stream error",
+                message: error.message
+            })}\n\n`);
+            res.end();
+        };
+
+        try {
             await processUserPromptStream(
                 prompt,
-                (chunk) => {
-                    // Send each chunk as an SSE event
-                    res.write(`data: ${JSON.stringify({ chunk })}\n\n`);
-                    console.log(`Streaming chunk: ${chunk}`);
-                    completeResponse += chunk;
-                },
-                (parsedResponse) => {
-                }
+                handleChunk,
+                () => {} 
             );
 
-            try {
-                const parsedResponse = JSON.parse(completeResponse);
-                res.write(`data: ${JSON.stringify({ complete: true, response: parsedResponse })}\n\n`);
-            } catch (e) {
-                res.write(`data: ${JSON.stringify({ complete: true, response: completeResponse })}\n\n`);
-            }
-
-            res.end();
-        } else {
-            let completeResponse = '';
+            res.write(`event: complete\ndata: ${JSON.stringify({
+                complete: true,
+                response: completeResponse
+            })}\n\n`);
             
-             await processUserPromptStream(
-                prompt,
-                (chunk) => {
-                    console.log(`Chunk received: ${chunk}`);
-                    completeResponse += chunk;
-                },
-                (parsedResponse) => {
-                }
-            );
-            
-            try {
-                const parsedResponse = JSON.parse(completeResponse);
-                return res.status(200).json(parsedResponse);
-            } catch (e) {
-                return res.status(200).send(completeResponse);
-            }
+        } catch (error) {
+            handleError(error instanceof Error ? error : new Error(String(error)));
+            return;
         }
+
+        res.end();
+      
     } catch (error) {
         console.error("Error processing prompt:", error);
-        return res.status(500).send({ 
-            error: "Failed to process user prompt", 
-            reason: error instanceof Error ? error.message : String(error)
-        });
+        if (!res.headersSent) {
+            return res.status(500).send({ 
+                error: "Failed to process user prompt", 
+                reason: error instanceof Error ? error.message : String(error)
+            });
+        }
+        console.error("Error after headers were sent:", error);
     }
 };
 
