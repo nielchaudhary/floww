@@ -14,7 +14,7 @@ import { BottomGradient } from './SignupForm';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
-
+import React from 'react';
 export function FeaturePage() {
   const navigate = useNavigate();
   const features = [
