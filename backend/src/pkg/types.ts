@@ -22,8 +22,8 @@ interface Technology {
   
   interface ICostAnalysis {
     infrastructure: string;
-    development_time: number;
-    maintenance_time: number;
+    development_time_in_days: number;
+    maintenance_OPEX_Score: number;
   }
   
   interface IScalability {
