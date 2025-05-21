@@ -36,8 +36,8 @@ export const FlowDesigner = () => {
 
           {/* Chat Box on the right */}
           <div className="relative rounded-3xl shadow-lg h-96 lg:h-210 w-full lg:w-100 flex flex-col p-4 lg:p-6 bg-black border border-white/10">
-            <span className="text-gray-400 text-lg lg:text-xl font-bold mb-4 z-10">
-              talk to floww
+            <span className="text-gray-300 text-lg lg:text-xl font-bold mb-4 z-10">
+              Discuss with <span className="text-teal-700 dark:text-teal-750">floww</span>
             </span>
             <div className="flex-1 overflow-y-auto">
               <div className="mb-2 text-gray-300">User: Hello!</div>
