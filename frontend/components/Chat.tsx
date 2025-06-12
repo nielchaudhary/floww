@@ -1,15 +1,22 @@
 import { Helmet } from 'react-helmet';
 import { Spotlight } from './Spotlight';
+import Layout from './Chat/app-sidebar';
 
 export const ChatPage = () => {
   return (
     <>
       <Helmet>
         <title>floww | Chat</title>
-      </Helmet>
-      <div className="relative flex flex-col items-center justify-center overflow-hidden py-10 h-screen w-screen bg-black">
-        <Spotlight />
-        <h1 className="text-white text-4xl font-bold">chat karo bhosdiwalo, shuru karo</h1>
+      </Helmet>{' '}
+      <div className="flex h-screen w-screen flex flex-col justify-center items-center overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <Spotlight />
+        </div>
+        <Layout>
+          <div className="flex h-screen w-screen flex flex-col justify-center items-center">
+            <h1>Hello from chat page</h1>
+          </div>
+        </Layout>
       </div>
     </>
   );

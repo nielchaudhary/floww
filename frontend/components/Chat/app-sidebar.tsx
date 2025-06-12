@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from 'lucide-react';
+import { Home, Inbox, MessageCircle } from 'lucide-react';
 import React from 'react';
 import {
   Sidebar,
@@ -6,48 +6,57 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
 } from '../../components/Chat/components/Sidebar';
-
+import { useNavigate } from 'react-router-dom';
 // Menu items.
 const items = [
   {
     title: 'Home',
-    url: '#',
+    url: '/',
     icon: Home,
   },
+
   {
-    title: 'Inbox',
-    url: '#',
-    icon: Inbox,
-  },
-  {
-    title: 'Calendar',
-    url: '#',
-    icon: Calendar,
-  },
-  {
-    title: 'Search',
-    url: '#',
-    icon: Search,
-  },
-  {
-    title: 'Settings',
-    url: '#',
-    icon: Settings,
+    title: 'Chats',
+    url: '/chats',
+    icon: MessageCircle,
   },
 ];
 
 export function AppSidebar() {
+  const navigate = useNavigate();
   return (
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <div className="flex flex-row font-bold">
+            <SidebarHeader>
+              <div className="flex items-center gap-2">
+                <img
+                  src="/flow.png"
+                  alt="Flow logo"
+                  className="h-8 w-8"
+                  onClick={() => {
+                    navigate('/');
+                  }}
+                />
+                <span
+                  onClick={() => {
+                    navigate('/');
+                  }}
+                >
+                  floww
+                </span>
+              </div>
+            </SidebarHeader>
+          </div>
+
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

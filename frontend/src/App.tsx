@@ -9,6 +9,8 @@ import { PricingSection } from '../components/PricingSection';
 import { NewPrompt } from '../components/NewPrompt';
 import { PaymentPage } from '../components/PaymentPage';
 import { UserVerification } from '../components/UserVerification';
+import { FlowDesigner } from '../components/FlowDesigner';
+import { SystemDesign } from '../components/SystemDesign/SystemDesign';
 
 function App() {
   return (
@@ -23,7 +25,9 @@ function App() {
         <Route path="/pricing" element={<PricingSection />} />
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/new" element={<NewPrompt />} />
+        <Route path="/flow" element={<FlowDesigner />} />
         <Route path="/user/verify" element={<UserVerification />} />
+        <Route path="/design" element={<SystemDesign />} />
       </Routes>
     </BrowserRouter>
   );

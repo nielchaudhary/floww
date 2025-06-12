@@ -5,6 +5,8 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-
 
 import React, { useRef, useState } from 'react';
 
+import { Spotlight } from './Spotlight';
+
 interface NavbarProps {
   children: React.ReactNode;
   className?: string;
@@ -107,7 +109,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
     <motion.div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        'absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex lg:space-x-2',
+        'absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex lg:space-x-10 font-bold',
         className
       )}
     >
@@ -204,8 +206,8 @@ export const NavbarLogo = () => {
       href="#"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
-      <img src="./flow.png" alt="logo" width={30} height={30} />
-      <span className="font-medium text-black dark:text-white">floww</span>
+      <img src="./flow.png" alt="logo" width={20} height={20} />
+      <span className="font-medium font-bold text-black dark:text-white">floww</span>
     </a>
   );
 };
@@ -246,3 +248,76 @@ export const NavbarButton = ({
     </Tag>
   );
 };
+
+export function NavbarComponent() {
+  const navItems = [
+    {
+      name: 'Features',
+      link: '#features',
+    },
+    {
+      name: 'Pricing',
+      link: '#pricing',
+    },
+    {
+      name: 'Contact',
+      link: '#contact',
+    },
+  ];
+
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  return (
+    <div className="relative flex flex-col items-center justify-center overflow-hidden">
+      <Spotlight />
+
+      <div className="relative w-full bg-black px-10 py-10">
+        <Navbar>
+          <NavBody>
+            {/* <NavbarLogo /> */}
+            <NavItems items={navItems} />
+          </NavBody>
+
+          <MobileNav>
+            <MobileNavHeader>
+              {/* <NavbarLogo /> */}
+              <MobileNavToggle
+                isOpen={isMobileMenuOpen}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              />
+            </MobileNavHeader>
+
+            <MobileNavMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)}>
+              {navItems.map((item, idx) => (
+                <a
+                  key={`mobile-link-${idx}`}
+                  href={item.link}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="relative text-neutral-600 dark:text-neutral-300"
+                >
+                  <span className="block">{item.name}</span>
+                </a>
+              ))}
+              <div className="flex w-full flex-col gap-4">
+                <NavbarButton
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  variant="primary"
+                  className="w-full"
+                >
+                  Login
+                </NavbarButton>
+                <NavbarButton
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  variant="primary"
+                  className="w-full"
+                >
+                  Book a call
+                </NavbarButton>
+              </div>
+            </MobileNavMenu>
+          </MobileNav>
+        </Navbar>
+      </div>
+    </div>
+  );
+}
